@@ -22,4 +22,12 @@ def image_input_section():
         if uploaded_camera:
             st.image(uploaded_camera, caption="Captured image", use_column_width=True)
 
+from backend.preprocessing import run_preprocessing
 
+def preprocessing_preview_section(processed):
+    st.subheader("Preprocessing Output")
+
+    st.image(processed["original"], caption="Original")
+    st.image(processed["gray"], caption="Grayscale")
+    st.image(processed["binary"], caption="Binarized")
+    st.image(processed["denoised"], caption="Noise Removed")

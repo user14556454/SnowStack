@@ -1,0 +1,34 @@
+import streamlit as st
+
+
+st.title("SMART SIGNBOARD INTERPRETER")
+st.subheader("From the SNOWSTACK team")
+st.divider()
+
+
+user = st.selectbox("How will you upload the image?",["Upload photo","Take image"])
+
+if user == "Upload photo":
+    st.subheader("Upload your image (or) Take photo")
+    uploaded_files = st.file_uploader("",type=['png','jpg','jpeg'])
+    if uploaded_files:
+        st.write(f"The photo has been successfully uploaded")
+    else:
+        st.write("Please upload the photo from above.")
+
+else:
+    st.subheader("Take Photo")
+    uploaded_camera = st.camera_input("")
+    if uploaded_camera:
+        st.image(uploaded_camera, caption="Captured image", use_column_width=True)
+
+from backend.preprocessing import run_preprocessing
+def preprocessing_preview_section(processed):
+    st.subheader("Preprocessing Output")
+
+    st.image(processed["original"], caption="Original")
+    st.image(processed["gray"], caption="Grayscale")
+    st.image(processed["binary"], caption="Binarized")
+    st.image(processed["denoised"], caption="Noise Removed")
+
+
