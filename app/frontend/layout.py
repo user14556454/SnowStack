@@ -21,3 +21,5 @@ def image_input_section():
         uploaded_camera = st.camera_input("")
         if uploaded_camera:
             st.image(uploaded_camera, caption="Captured image", use_column_width=True)
+
+
