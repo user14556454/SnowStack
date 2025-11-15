@@ -1,5 +1,8 @@
 import streamlit as st
 from frontend.styling import apply_custom_styles
+from backend.tts_engine import generate_tts
+from frontend.layout import tts_section
+
 
 from frontend.layout import (
     header_section,
@@ -34,6 +37,18 @@ def main():
         if target_lang:
             translated_output = translate_text(ocr_text, target_lang)
             translation_output_section(translated_output)
+    
+    tts_text = tts_section()
+
+    if tts_text:
+        audio_path = generate_tts(tts_text)
+
+        if audio_path:
+            st.success("Audio generated successfully!")
+            st.audio(audio_path, format="audio/mp3")
+        else:
+            st.error("Failed to generate speech.")
+
 
 
 if __name__ == "__main__":

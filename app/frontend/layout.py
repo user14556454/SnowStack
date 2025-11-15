@@ -61,3 +61,19 @@ def translation_section():
 
 def translation_output_section(translated_text):
     st.text_area("Translated Output", translated_text, height=150, key="translated_text_box")
+
+def tts_section():
+    st.subheader("🔊 Text to Speech")
+
+    text_input = st.text_area(
+        "Enter text for speech:",
+        key="tts_input",
+        height=120
+    )
+
+    clicked = st.button("Generate Audio", key="tts_button")
+
+    if clicked:
+        return text_input
+    
+    return None
