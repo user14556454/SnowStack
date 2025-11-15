@@ -1,19 +1,28 @@
 from pygoogletranslation import Translator
 
-# 1. Instantiate the Translator object
 translator = Translator()
 
-original_text = input("Enter the text to translate: ")
-c = input("Enter the target language code (e.g., 'es', 'fr', 'en'): ")
+def translate_text(text: str, target_language: str) -> str:
+    """
+    Safe translation wrapper.
+    Always returns a string.
+    Never crashes Streamlit.
+    """
 
-try:
-    # 2. Call the translate method
-    result_object = translator.translate(original_text, dest=c)
-    
-    # 3. Access the text attribute
-    final_result = result_object.text
+    if not text or text.strip() == "":
+        return "No OCR text found to translate."
 
-    print(f"\nThe following is your generated text: {final_result}")
+    if not target_language:
+        return "No target language selected."
 
-except Exception as e:
-    print(f"\nTranslation Failed. Error: {e}")
+    try:
+        result = translator.translate(text, dest=target_language)
+        translated_text = result.text
+
+        if not translated_text:
+            return "Translation failed: empty output."
+
+        return translated_text
+
+    except Exception as e:
+        return f"Translation failed: {str(e)}"
