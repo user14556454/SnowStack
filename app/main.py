@@ -1,4 +1,5 @@
 import streamlit as st
+from frontend.styling import apply_custom_styles
 
 from frontend.layout import (
     header_section,
@@ -16,7 +17,7 @@ from backend.translator import translate_text
 
 def main():
     st.set_page_config(layout="wide")
-
+    apply_custom_styles
     header_section()
 
     image_bytes = image_input_section()
